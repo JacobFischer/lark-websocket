@@ -1,0 +1,16 @@
+{
+    "name": "vi-websocket",
+    "main": "websocket.js",
+    "version" : "0.0.0",
+    "author" : "Sun Haohao",
+    "maintainers" : [
+        {
+            "name"  : "Sun Haohao",
+            "email" : "viRingbells@qq.com"
+        }
+    ],
+    "repositories" : "https://github.com/viRingbells/vi-websocket.git",
+    "dependencies" : {
+        "extend" : "2.0.0"
+    }
+}
