@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Welcome</title>
+  <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<style>
+#out{
+  display: block;
+  width: 100%;
+  height: 200px;  
+}
+#in{
+  width: 100%;
+}
+</style>
+</head>
+<body>
+<textarea id='out'></textarea>
+<input id='in' type='search' placeholder='Input your message here'></input>
+<script>
+var ws = new WebSocket('ws://' + window.location.hostname + ':8023' + window.location.pathname + window.location.search);
+var output = document.getElementById('out');
+var input  = document.getElementById('in');
+ws.onopen = function(e){
+    output.value += "You have connected\n";
+}
+ws.onclose = function(e){
+    output.value += "You have disconnected\n";
+}
+ws.onmessage = function(e){
+    output.value += e.data + '\n';
+}
+ws.onerror = function(e){
+    output.value += 'Websocket Error\n';
+}
+
+document.onkeydown=function(event){
+    var e = event || window.event || arguments.callee.caller.arguments[0];
+    if(e && e.keyCode==13){ // enter pressed
+        ws.send(input.value);
+        input.value = '';
+    }
+}
+
+</script>
+</body>
+</html>
