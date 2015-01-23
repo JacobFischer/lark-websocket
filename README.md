@@ -15,14 +15,14 @@ The arg `client` is an instance of `Client` which encapsulate an instance of `ne
 
     var ws = require('vi-websocket');
     ws.createServer(function(client, request){
-          console.log("A connection has established");
-          client.send("Welcome to my site!");
-          client.on('message',function(msg){
-              console.log("A message received : " + msg);
-              client.send("I have received your message : " + msg);
-          });
-      }).listen(8023, function(){
-          console.log("Listening for websocket connections on port 8023 ...");
+        console.log("A connection has established");
+        client.send("Welcome to my site!");
+        client.on('message',function(msg){
+            console.log("A message received : " + msg);
+            client.send("I have received your message : " + msg);
+        });
+    }).listen(8023, function(){
+        console.log("Listening for websocket connections on port 8023 ...");
     });
 
 Then you can start a new websocket connection on the browser:
