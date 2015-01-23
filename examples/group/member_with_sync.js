@@ -21,11 +21,6 @@ var wsApp = ws.createApp();
 
 var global = ws.createGroup('global');
 
-global.on('error',function(err){
-    global.all.send('Error : ' + err.getMessage());
-    console.log(err);
-});
-
 global.sync().send = function(message){
     redisSend.publish('ws',message);
 };
@@ -36,24 +31,41 @@ redisRecv.on('message',function(channel, message){
     global.sync().receive(message);
 });
 
+global.on("error", function(err){
+    console.log(err);
+    global.all().connectedWithMe().send("Server ["+ os.hostname() + " pid : " +process.pid+ "] Group Error : " + err.message);
+}.bind(this));
+
 wsApp.on('connect',function(request){
     this.name = request.path_param.name;
-    global.add(this.name, this);
+    this.profession = request.path_param.profession;
+    this.addr = request.path_param.addr;
     this.send("You have connected with " + os.hostname() + " at pid " + process.pid);
+    global.add(this.name, this);
+    global.all().send("User " + this.name + " has connected");
+});
+
+global.setHandler('programmers', function(client){
+    return client.profession == 'programmer';
+});
+
+global.setHandler('in china', function(client){
+    return client.addr == 'china';
 });
 
 wsApp.on('message',function(message){
-    console.log("Broad cast received from client : " + message);
-    global.broadcast('message', message, this.name);
+    global.all('in china').send(message).send("#CHINA#");
+    global.all().send('#ALL#');
+    global.emit('error', new Error("ERROR"));
+    return this;
 });
+   
+/*
+setInterval(function(){
+    global.emit("error","Hahaha");
+},5000);
+*/
 
-global.onbroadcast('message', function(message, sendername){
-    console.log("Broad cast received from sync system : " + message);
-    for(var name in global.member){
-        global.member[name].send(sendername + ":" + message);
-    }
-});
-
-wsRouter.route('/iam/:name', wsApp);
+wsRouter.route('/iam/:name/:addr', wsApp);
 
 ws.createServer(wsRouter).listen(8023);

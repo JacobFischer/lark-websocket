@@ -1,7 +1,7 @@
 var ws = require('..');
 
-ws.createServer(function(request, client){
-    console.log("User connected");
+var server = ws.createServer(function(client, request){
+    console.log("User connected " + request.url);
     client.send("Welcome to my site");
     client.on('message', function(message){
         console.log("Received : " + message);
@@ -11,4 +11,6 @@ ws.createServer(function(request, client){
     var interval = setInterval(function(){
         client.send("#SYSTEM#");
     },20000);
-}).listen(8023);
+});
+
+server.listen(8023);

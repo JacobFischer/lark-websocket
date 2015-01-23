@@ -6,7 +6,7 @@ var wsApp = ws.createApp();
 
 var global = ws.createGroup();
 
-wsApp.on('connect',function(request){
+wsApp.on('connect',function(client, request){
     this.name = request.path_param.name;
     global.add(this.name, this);
 });

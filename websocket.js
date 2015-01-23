@@ -1,3 +1,4 @@
+'use strict';
 /**
  * Export websocket
  **/
@@ -7,46 +8,69 @@ var websocket   = module.exports = {};
  * Dependencies
  **/
 var util        = require('util');
+var net         = require('net');
+var NetServer   = require('net').Server;
 var HttpServer  = require('http').Server;
 
+var websocket_server = require('./server.js');
 var main        = require('./lib/main');
 var Application = require('./lib/application');
+var Client      = require('./lib/client');
 var Router      = require('./lib/router');
 var Group       = require('./lib/group');
 
-/**
- * Extend HttpServer with acceptHttp/acceptWebsocket methods
- * for both http and websocket request
- * Support 'http.createServer(app).acceptWebsocket(wsApp).listen(port)'
- **/
-HttpServer.prototype.acceptWebsocket = function(app){
-    this._accept_websocket = true;
-    if(app instanceof Application || app instanceof Router){
-        app = app.toWebsocketApp();
-    }
-    return this.on('websocket', function(client, request, wsArgs){
-        app.call(client, request, client, wsArgs);
-    });
+websocket_server(NetServer);
+
+NetServer.prototype.onListen  = function(){
+    var args = [].slice.call(arguments);
+    main.net(this, args);
+};
+
+HttpServer.prototype.onListen = function(){
+    var args = [].slice.call(arguments);
+    main.http(this, args);
 };
 
 HttpServer.prototype.acceptHttp = function(app){
     return this.on('request', app);
 };
 
-HttpServer.prototype.listen = (function(listen){
-    return function(){
-        var args = [].slice.call(arguments);
-        this.on('upgrade', main(this , args));
-        return listen.apply(this, args);
-    };
-})(HttpServer.prototype.listen);
-
-
+websocket.http = {};
+websocket.net  = {};
 /**
- * Support 'ws.createServer(wsApp).listen(port)'
+ * Support   'ws.createServer(wsApp).listen(port)'
+ * short for 'ws.http.createServer(wsApp).listen(port)'
+ * to create a http server with websocket supported
  **/
+websocket.http.createServer =
+websocket.createHttpServer  =
 websocket.createServer = function(wsApp){
     return new HttpServer().acceptWebsocket(wsApp);
+};
+
+/**
+ * Support   'ws.createNetServer(wsApp).listen(port)'
+ * short for 'ws.net.createServer(wsApp).listen(port)'
+ * to create a socket server with websocket supported
+ **/
+websocket.net.createServer =
+websocket.createNetServer = function(wsApp){
+    return new NetServer().acceptWebsocket(wsApp);
+};
+
+websocket.net.connect = 
+websocket.connectNet = function(){
+    var socket = net.connect.apply(net, [].slice.call(arguments));
+    var client = new Client(socket);
+    return client;
+};
+
+websocket.createClient = function(socket){
+    return new Client(socket);
+};
+
+websocket.createServerClient = function(socket){
+    return new Client(socket, { role : 'server'});
 };
 
 /**

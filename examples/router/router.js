@@ -4,7 +4,7 @@ var wsRouter = ws.createRouter();
 var wsAppBoy      = ws.createApp();
 var wsAppGirl     = ws.createApp();
 
-var wsAppAnonymous  = function(req){
+var wsAppAnonymous  = function(client, req){
     console.log("An anonymous has connected");
 
     console.log(req.path_param);
@@ -18,7 +18,7 @@ var wsAppAnonymous  = function(req){
     });
 };
 
-wsAppBoy.on('connect',function(req){
+wsAppBoy.on('connect',function(client, req){
     console.log(req.path_param);
     console.log(req.querystring);
 
@@ -35,7 +35,7 @@ wsAppBoy.on('close', function(){
     console.log("A client has disconnected from boy");
 });
 
-wsAppGirl.on('connect',function(req){
+wsAppGirl.on('connect',function(client, req){
     console.log("A client has connected with girl");
     console.log(req.path_param);
     console.log(req.querystring);

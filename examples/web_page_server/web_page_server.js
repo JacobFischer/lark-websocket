@@ -1,7 +1,10 @@
 var http = require('http');
 var path = require('path');
+var fs   = require('fs');
 
-var html = require('fs').readFileSync(path.join(__dirname, 'ws.html'));
+var file = 'ws.html';
+
+var html = fs.readFileSync(path.join(__dirname, file));
 
 http.createServer(function(req, res){
     res.write(html);

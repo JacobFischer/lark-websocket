@@ -2,7 +2,7 @@ var ws = require('..');
 
 var app = ws.createApp();
 
-app.on('connect', function(request, client){
+app.on('connect', function(client, request){
     console.log('An user has connected, url is ' + request.url);
 });
 

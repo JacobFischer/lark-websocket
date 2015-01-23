@@ -3,11 +3,16 @@ var http = require('http');
 
 var app = ws.createApp();
 
+app.on('connect', function(){
+    console.log('An ws connected');
+});
+
 app.on('message', function(message){
     this.send('I have received your message ' + message);
 });
 
-ws.createServer(app).acceptHttp(function(req, res){
+http.createServer(function(req, res){
+    console.log("HTTP REQUEST RECEIVED");
     res.write("Look, the page on port 8023 is available");
     res.end();
-}).listen(8023);
+}).acceptWebsocket(app).listen(8023);
