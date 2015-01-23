@@ -2,7 +2,7 @@
 A websocket framework for mobile web apps.
 
 ## Get Started
-For the mose common case, you can start a websocket server by creating a websocket server just like using http module.
+For the most common case, you can start a websocket server by creating a websocket server just like using http module.
 
     var ws = require('vi-websocket');
     ws.createServer(function(client, request){
