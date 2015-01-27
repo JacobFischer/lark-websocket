@@ -1,95 +1,22 @@
 'use strict';
-/**
- * Export websocket
- **/
-var websocket   = module.exports = {};
 
 /**
  * Dependencies
  **/
-var util        = require('util');
-var net         = require('net');
-var NetServer   = require('net').Server;
-var HttpServer  = require('http').Server;
+var main  = require('./lib/main');
 
-var websocket_server  = require('./lib/server');
-var main              = require('./lib/main');
-var Client            = require('./lib/client');
-var Application       = require('./lib/extend/application');
-var Router            = require('./lib/extend/router');
-var Group             = require('./lib/extend/group');
-
-websocket_server(NetServer);
-
-NetServer.prototype.onListen  = function(){
-    var args = [].slice.call(arguments);
-    main.net(this, args);
-};
-
-HttpServer.prototype.onListen = function(){
-    var args = [].slice.call(arguments);
-    main.http(this, args);
-};
-
-HttpServer.prototype.acceptHttp = function(app){
-    return this.on('request', app);
-};
-
-websocket.http = {};
-websocket.net  = {};
-/**
- * Support   'ws.createServer(wsApp).listen(port)'
- * short for 'ws.http.createServer(wsApp).listen(port)'
- * to create a http server with websocket supported
- **/
-websocket.http.createServer =
-websocket.createHttpServer  =
-websocket.createServer = function(wsApp){
-    return new HttpServer().acceptWebsocket(wsApp);
-};
+var application = require('./extends/application/extend');
+var router      = require('./extends/router/extend');
+var group       = require('./extends/group/extend');
 
 /**
- * Support   'ws.createNetServer(wsApp).listen(port)'
- * short for 'ws.net.createServer(wsApp).listen(port)'
- * to create a socket server with websocket supported
+ * Export websocket
  **/
-websocket.net.createServer =
-websocket.createNetServer = function(wsApp){
-    return new NetServer().acceptWebsocket(wsApp);
-};
-
-websocket.net.connect = 
-websocket.connectNet = function(){
-    var socket = net.connect.apply(net, [].slice.call(arguments));
-    var client = new Client(socket);
-    return client;
-};
-
-websocket.createClient = function(socket){
-    return new Client(socket);
-};
-
-websocket.createServerClient = function(socket){
-    return new Client(socket, { role : 'server'});
-};
+var websocket = module.exports = main;
 
 /**
- * Support 'ws.createApp() or ws.createApplication()'
+ * Extend websocket with Application/Router/Group/...
  **/
-websocket.createApp = websocket.createApplication = function(){
-    return new Application([].slice.call(arguments));
-}
-
-/**
- * Support 'ws.createRouter()'
- **/
-websocket.createRouter = function(){
-    return new Router([].slice.call(arguments));
-}
-
-/**
- * Support 'ws.createGroup(name)'
- **/
-websocket.createGroup = function(name){
-    return new Group(name);
-};
+websocket.extend(application);
+websocket.extend(router);
+websocket.extend(group);

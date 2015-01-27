@@ -36,7 +36,7 @@ redisRecv.on('message',function(channel, message){
     global.sync().receive(message);
 });
 
-wsApp.on('connect',function(request){
+wsApp.on('connect',function(client,request){
     this.name = request.path_param.name;
     global.add(this.name, this);
     this.send("You have connected with " + os.hostname() + " at pid " + process.pid);

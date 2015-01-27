@@ -9,8 +9,7 @@ module.exports = Router;
 var util          = require('util');
 var EventEmitter  = require('events').EventEmitter;
 
-var utils         = require('../utils');
-var Application   = require('./application');
+var utils         = require('../../common/utils');
 
 util.inherits(Router, EventEmitter);
 function Router(){
@@ -33,8 +32,13 @@ Router.prototype.toWebsocketApp = function(){
         var param = result.args;
         
         
-        if(app instanceof Application){
-            app = app.toWebsocketApp();
+        if(typeof app != 'function'){
+            if(app.toWebsocketApplication && typeof app.toWebsocketApplication == 'function'){
+                app = app.toWebsocketApplication();
+            }
+            else if(app.toWebsocketApp && typeof app.toWebsocketApp == 'function'){
+                app = app.toWebsocketApp();
+            }
         }
 
         request.path_param = param || {};

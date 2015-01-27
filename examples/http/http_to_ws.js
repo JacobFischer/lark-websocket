@@ -1,15 +1,15 @@
 var ws   = require('..');
 var http = require('http');
 
-var app = ws.createApp();
+var app = function(client, request){
+    client.on('connect', function(){
+        console.log('An ws connected');
+    });
 
-app.on('connect', function(){
-    console.log('An ws connected');
-});
-
-app.on('message', function(message){
-    this.send('I have received your message ' + message);
-});
+    client.on('message', function(message){
+        client.send('I have received your message ' + message);
+    });
+}
 
 http.createServer(function(req, res){
     console.log("HTTP REQUEST RECEIVED");

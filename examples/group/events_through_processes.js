@@ -44,7 +44,7 @@ global.on('simple_event', function(message){
     global.all().connectedWithMe().send("Server ["+ os.hostname() + " pid : " +process.pid+ "] Simple Event : " + message);
 });
 
-wsApp.on('connect',function(request){
+wsApp.on('connect',function(client,request){
     this.name = request.path_param.name;
     this.profession = request.path_param.profession;
     this.addr = request.path_param.addr;

@@ -11,7 +11,7 @@ global.on('error',function(err){
     global.all().send("Error : " + err);
 });
 
-wsApp.on('connect',function(request){
+wsApp.on('connect',function(client,request){
     this.name = request.path_param.name;
     this.profession = request.path_param.profession;
     this.addr = request.path_param.addr;

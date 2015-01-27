@@ -36,7 +36,7 @@ global.on("error", function(err){
     global.all().connectedWithMe().send("Server ["+ os.hostname() + " pid : " +process.pid+ "] Group Error : " + err.message);
 }.bind(this));
 
-wsApp.on('connect',function(request){
+wsApp.on('connect',function(client,request){
     this.name = request.path_param.name;
     this.profession = request.path_param.profession;
     this.addr = request.path_param.addr;

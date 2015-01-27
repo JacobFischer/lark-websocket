@@ -27,7 +27,7 @@ global.persistence().get = function(key, callback){
     redis.hget('ws:'+global.name, key, callback);
 };
 
-wsApp.on('connect',function(request){
+wsApp.on('connect',function(client,request){
     this.name = request.path_param.name;
     global.add(this.name, this);
 });

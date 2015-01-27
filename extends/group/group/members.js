@@ -9,7 +9,7 @@ module.exports = Members;
  **/
 var extend  = require('extend');
 
-var Client  = require('../../client');
+var Client  = require('../../../lib/client');
 
 function Members(group){
     this.group   = group;

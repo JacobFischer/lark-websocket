@@ -10,7 +10,7 @@ var extend        = require('extend');
 var util          = require('util');
 var EventEmitter  = require('events').EventEmitter;
 
-var Client        = require('../client');
+var Client        = require('../../lib/client');
 var Members       = require('./group/members');
 var Sync          = require('./group/sync');
 

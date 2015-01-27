@@ -1,15 +1,15 @@
 var ws = require('..');
 
-var app = ws.createApp();
+var app = function(client, request){
+    client.on('connect', function(){
+        console.log("A raw websocket connection established");
+    });
 
-app.on('connect', function(){
-    console.log("A raw websocket connection established");
-});
-
-app.on('message', function(msg){
-    console.log("Received : " + msg);
-    this.send("OK");
-});
+    client.on('message', function(msg){
+        console.log("Received : " + msg);
+        client.send("OK");
+    });
+}
 
 var server = ws.net.createServer(app);
 
