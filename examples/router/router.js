@@ -1,4 +1,4 @@
-var ws = require('lark-websocket');
+var ws = require('..');
 
 var wsRouter = ws.createRouter();
 var wsAppBoy      = ws.createApp();

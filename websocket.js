@@ -12,12 +12,12 @@ var net         = require('net');
 var NetServer   = require('net').Server;
 var HttpServer  = require('http').Server;
 
-var websocket_server = require('./server.js');
-var main        = require('./lib/main');
-var Application = require('./lib/application');
-var Client      = require('./lib/client');
-var Router      = require('./lib/router');
-var Group       = require('./lib/group');
+var websocket_server  = require('./lib/server');
+var main              = require('./lib/main');
+var Client            = require('./lib/client');
+var Application       = require('./lib/extend/application');
+var Router            = require('./lib/extend/router');
+var Group             = require('./lib/extend/group');
 
 websocket_server(NetServer);
 

@@ -13,4 +13,6 @@ var server = ws.createServer(function(client, request){
     },20000);
 });
 
-server.listen(8023);
+server.listen(8023,function(){
+    console.log("Listening at 8023 ...");
+});
