@@ -1,5 +1,6 @@
+'use strict';
 /**
- * Upgrade emitters, now use
+ * Upgrade emitters, handlers will be bond with `me` using the return function
  * emitter.emitMe = emitterWithThis(emitter);
  * emitter.emitMe(me, event [,arg1 [,arg2 ... ]])
  **/
