@@ -1,6 +1,6 @@
 var ws = require('..');
 
-var server = ws.createServer(function(client, request){
+var server = module.exports = ws.createServer(function(client, request){
     console.log("User connected " + request.url);
     client.send("Welcome to my site");
     client.on('message', function(message){

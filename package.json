@@ -12,5 +12,13 @@
     "repositories" : "https://github.com/viRingbells/vi-websocket.git",
     "dependencies" : {
         "extend" : "2.0.0"
+    },
+    "devDependencies" : {
+        "mocha" : "^2.0.1",
+        "should" : "^4.4.1",
+        "supertest" : "0.15.0"
+    },
+    "scripts" : {
+        "test" : "NODE_ENV=development ./node_modules/.bin/mocha --harmony --require should test/"
     }
 }
