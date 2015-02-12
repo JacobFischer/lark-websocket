@@ -1,5 +1,4 @@
 var ws   = require('..');
-var http = require('http');
 
 var app = function(client ,request){
     client.on('message', function(message){
@@ -8,9 +7,9 @@ var app = function(client ,request){
     });
 }
 
-http.createServer(function(req, res){
+ws.createServer(app).acceptHttp(function(req, res){
     res.write("Look, the page on port 8023 is available");
     res.end();
-}).acceptWebsocket(app).listen(8023,function(){
+}).listen(8023,function(){
     console.log("Listening at port 8023...");   
 });
