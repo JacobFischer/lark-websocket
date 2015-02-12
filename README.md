@@ -1,5 +1,5 @@
 # vi-websocket
-A websocket framework for mobile web apps.
+A websocket framework.
 
 ## Get Started
 For the most common case, you can start a websocket server by creating a websocket server just like using http module.
