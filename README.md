@@ -1,38 +1,48 @@
 # vi-websocket
-A websocket framework.
+Websocket webserver framework in nodejs. *Under development, unstable*
 
-## Get Started
-For the most common case, you can start a websocket server by creating a websocket server just like using http module.
+## Install
 
-    var ws = require('vi-websocket');
-    ws.createServer(function(client, request){
-        //Handle the connection with client and request
-    }).listen(8023, function(){
-        console.log("Listening for websocket connections on port 8023 ...");
-    }
+    npm install vi-websocket
 
-The arg `client` is an instance of `Client` which encapsulate an instance of `net.Socket` to handle the details of communication with websocket protocal. Typically, `client.on('message',on_message)` is used to handle each message from the browser. `client.send(message)` is used to send message to the browser.
+## Get started
+The following example creates a new websocket server, and send a message back when received one
 
     var ws = require('vi-websocket');
     ws.createServer(function(client, request){
-        console.log("A connection has established");
-        client.send("Welcome to my site!");
         client.on('message',function(msg){
-            console.log("A message received : " + msg);
-            client.send("I have received your message : " + msg);
+            client.send("Received you message : " + msg);
         });
-    }).listen(8023, function(){
-        console.log("Listening for websocket connections on port 8023 ...");
+    }).listen(8023);
+
+## Attach
+Attach websocket server to an HTTP server
+
+    require('vi-websocket');
+    var http = require('http');
+    http.createServer(function(req,res){...})
+        .acceptWebsocket(function(client, request){...})
+        .listen(8023);
+
+*Note that requiring websocket will extend require('net').Server with acceptWebsocket. I'm still considering, maybe will remove this later*
+
+## Extend
+You can extend/modify vi-websocket directly, or use the following syntactic sugar:
+
+    var websocket = require('vi-websocket');
+    websocket.extend(function(ws){
+        ws.sayHello = function(){...};
     });
 
-Then you can start a new websocket connection on the browser:
+By default vi-websocket has been extended with `application`, `router` and `group`
 
-    var ws = new WebSocket("ws://localhost:8023/");
-    ws.onmessage = function(e){
-        console.log("Data received : " + e.data);
-    };
-    ws.onopen = function(){
-        ws.send("Nice to meet you, my name is Jack");
-    }
+## Client
+Inherits events.EventEmitter, encapsulated socket.
 
-## To Be Continued ...
+* `new Client(socket)`  to create a new client
+* `client.send` send a message, emit `send`
+* `client.receive` to receive frames. Usage `client.receive(callback)`, `callback` is called when a frame received, emit `receive`
+* `client.message` to receive message. Usage `client.receive(callback)`, `callback` is called when a text frame  received, emit `message`
+* `client.ping` to ping. Unfortunately, no events for this action
+* `client.close` to close, emit `close`
+* Event `error`, emit when socket event `error` emitted
