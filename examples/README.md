@@ -1,7 +1,7 @@
-<h3>Here are the examples for 'vi-websocket'</h3>
-<p>Each directory shows a feature of 'vi-websocket'. We recommend you start by the following order</p>
+<h3>Here are the examples for 'lark-websocket'</h3>
+<p>Each directory shows a feature of 'lark-websocket'. We recommend you start by the following order</p>
 <table>
-  <tr><td>get_started</td><td>the simplest example of vi-websocket</td></tr>
+  <tr><td>get_started</td><td>the simplest example of lark-websocket</td></tr>
   <tr><td>application</td><td>use ws.createApp to create a application</td></tr>
   <tr><td>http       </td><td>bind websocket server with http server (and reverse)</td></tr>
   <tr><td>router     </td><td>route connections to different applications</td></tr>

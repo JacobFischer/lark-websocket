@@ -1,3 +1,3 @@
-/*Exports the vi-websocket*/
+/*Exports the lark-websocket*/
 
 module.exports = require('..');

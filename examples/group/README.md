@@ -1,7 +1,7 @@
 Under construction
 
 Group
-Here is how to use group in vi-websocket.
+Here is how to use group in lark-websocket.
 
 group : the basic use of group
 

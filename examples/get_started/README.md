@@ -1,4 +1,4 @@
-GET STARTED of how to use vi-websocket
+GET STARTED of how to use lark-websocket
 
 1: run 'node ../web_page_server/web_page_server.js' to start web page service;
 2: run 'node websocket_server.js' to start a websocket service;
