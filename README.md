@@ -1,14 +1,14 @@
-# vi-websocket
+# lark-websocket
 Websocket webserver framework in nodejs. *Under development, unstable*
 
 ## Install
 
-    npm install vi-websocket
+    npm install lark-websocket
 
 ## Get started
 The following example creates a new websocket server, and send a message back when received one
 
-    var ws = require('vi-websocket');
+    var ws = require('lark-websocket');
     ws.createServer(function(client, request){
         client.on('message',function(msg){
             client.send("Received you message : " + msg);
@@ -18,7 +18,7 @@ The following example creates a new websocket server, and send a message back wh
 ## Attach
 Attach websocket server to an HTTP server
 
-    require('vi-websocket');
+    require('lark-websocket');
     var http = require('http');
     http.createServer(function(req,res){...})
         .acceptWebsocket(function(client, request){...})
@@ -27,14 +27,14 @@ Attach websocket server to an HTTP server
 *Note that requiring websocket will extend require('net').Server with acceptWebsocket. I'm still considering, maybe will remove this later*
 
 ## Extend
-You can extend/modify vi-websocket directly, or use the following syntactic sugar:
+You can extend/modify lark-websocket directly, or use the following syntactic sugar:
 
-    var websocket = require('vi-websocket');
+    var websocket = require('lark-websocket');
     websocket.extend(function(ws){
         ws.sayHello = function(){...};
     });
 
-By default vi-websocket has been extended with `application`, `router` and `group`
+By default lark-websocket has been extended with `application`, `router` and `group`
 
 ## Client
 Inherits events.EventEmitter, encapsulated socket.
