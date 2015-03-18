@@ -1,7 +1,8 @@
 {
-    "name": "vi-websocket",
+    "name": "lark-websocket",
     "main": "websocket.js",
-    "version" : "0.0.2",
+    "version" : "0.0.1",
+    "description": "A light-weight websocket framework based on Node.js. Provides an easy way to build services with raw WebSocket protocol",
     "author" : "Sun Haohao",
     "maintainers" : [
         {
@@ -9,7 +10,7 @@
             "email" : "viRingbells@qq.com"
         }
     ],
-    "repositories" : "https://github.com/viRingbells/vi-websocket.git",
+    "repositories" : "https://github.com/larkjs/lark-websocket.git",
     "dependencies" : {
         "extend" : "2.0.0"
     },
