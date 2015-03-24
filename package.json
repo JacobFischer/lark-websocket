@@ -1,7 +1,7 @@
 {
     "name": "lark-websocket",
     "main": "websocket.js",
-    "version" : "0.0.2",
+    "version" : "0.0.3",
     "description": "A light-weight websocket framework based on Node.js. Provides an easy way to build services with raw WebSocket protocol",
     "author" : "Sun Haohao",
     "maintainers" : [
