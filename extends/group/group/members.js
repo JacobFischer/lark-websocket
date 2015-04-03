@@ -161,7 +161,7 @@ Members.prototype.run = function(exec){
         this.steps.pop();
         return this;
     }
-    console.log(this.steps);
+    //console.log(this.steps);
     var step = null;
     while(step = this.steps.shift()){
         this['_' + step.shift()].apply(this, step);
