@@ -7,9 +7,12 @@ var server = module.exports = ws.createServer(function(client, request){
         console.log("Received : " + message);
         client.send("I have received your message : " + message);
     });
+    client.on('close', function (client) {
+        console.log("Connection closed!");
+    });
 
     var interval = setInterval(function(){
-        client.send("#SYSTEM#");
+        !client.closed && client.send("#SYSTEM#");
     },20000);
 });
 
