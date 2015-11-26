@@ -1,6 +1,8 @@
 # lark-websocket
 Websocket webserver framework in nodejs. *Under development, unstable*
 
+Modified by Jacob Fischer to add in client pausing/resuming so they can be passed between child processes without the pings breaking
+
 ## Install
 
     npm install lark-websocket
@@ -45,4 +47,6 @@ Inherits events.EventEmitter, encapsulated socket.
 * `client.message` to receive message. Usage `client.receive(callback)`, `callback` is called when a text frame  received, emit `message`
 * `client.ping` to ping. Unfortunately, no events for this action
 * `client.close` to close, emit `close`
+* `client.pause` to pauses pinging and sending events. Useful to pass the socket between threads
+* `client.resume` to resume from a pause
 * Event `error`, emit when socket event `error` emitted
