@@ -4,6 +4,7 @@
     "version" : "0.1.4",
     "description": "A light-weight websocket framework based on Node.js. Provides an easy way to build services with raw WebSocket protocol",
     "author" : "Sun Haohao",
+    "types": "index.d.ts",
     "maintainers" : [
         {
             "name"  : "Sun Haohao",
