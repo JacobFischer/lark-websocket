@@ -6,7 +6,6 @@ module.exports = Group;
 /**
  * Dependencies
  **/
-var extend        = require('extend');
 var util          = require('util');
 var EventEmitter  = require('events').EventEmitter;
 
@@ -15,7 +14,7 @@ var Members       = require('./group/members');
 var Sync          = require('./group/sync');
 
 util.inherits(Group, EventEmitter);
-extend(Group, new EventEmitter());
+Object.assign(Group, new EventEmitter());
 function Group(name){
     this.name = name;
     this.member = {};

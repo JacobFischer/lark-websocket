@@ -7,8 +7,6 @@ module.exports = Members;
 /**
  * Dependencies
  **/
-var extend  = require('extend');
-
 var Client  = require('../../../lib/client');
 
 function Members(group){
@@ -68,7 +66,7 @@ Members.prototype.getHandler = function(id){
 };
 
 Members.prototype._reset = function(){
-    this.target = extend({}, this.group.member);
+    this.target = Object.assign({}, this.group.member);
     return this;
 };
 

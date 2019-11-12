@@ -12,9 +12,6 @@
         }
     ],
     "repositories" : "https://github.com/JacobFischer/lark-websocket.git",
-    "dependencies" : {
-        "extend" : "2.0.0"
-    },
     "devDependencies" : {
         "mocha" : "^2.0.1",
         "should" : "^4.4.1",
