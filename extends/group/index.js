@@ -14,20 +14,20 @@ var Members       = require('./group/members');
 var Sync          = require('./group/sync');
 
 util.inherits(Group, EventEmitter);
-Object.assign(Group, new EventEmitter());
+Group.all = new EventEmitter();
 function Group(name){
     this.name = name;
     this.member = {};
 
     this._emit = this.emit;
 
-    Group.emit('new', this);
+    Group.all.emit('new', this);
 };
 
 Sync.upgrade(Group);
 Members.upgrade(Group);
 
-Group.on('new', function(instance){
+Group.all.on('new', function(instance){
     instance.syncEvents.push(/^v:.*$/);
 });
 

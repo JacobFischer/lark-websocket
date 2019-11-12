@@ -17,7 +17,7 @@ function Members(group){
 };
 
 Members.upgrade = function(Group){
-    Group.on('new', function(group){
+    Group.all.on('new', function(group){
         group.on('v:members:execute', function(steps){
             group.getMembers().execute(steps);
         });
